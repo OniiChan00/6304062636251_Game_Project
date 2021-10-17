@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -22,6 +23,7 @@ import ToolCreateForCreateWorld.WorldCreater;
 public class PlayScreen implements Screen{
 	
 	private MainClass game;
+	private TextureAtlas atlas;
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
 	private Hud hud;
@@ -38,7 +40,7 @@ public class PlayScreen implements Screen{
 	
 	public PlayScreen(MainClass game)
 	{
-		
+		atlas = new TextureAtlas("Dina_Enemies.pack");
 		this.game = game;
 		gamecam = new OrthographicCamera();
 		
@@ -58,17 +60,24 @@ public class PlayScreen implements Screen{
 		
 		
 		world = new World(new Vector2(0, -10 ), true);
-		player = new Dany(world);
+		
 		//dbug line of our box2d World
 		b2dr = new Box2DDebugRenderer();
 		
 		new WorldCreater(world, map);
 		
+		player = new Dany(world,this);
 		
 	}
 	
-	
+	public TextureAtlas getAtlas()
+	{
+		return atlas;
+	}
 
+	
+	
+	
 	
 	@Override
 	public void show() 
@@ -95,6 +104,8 @@ public class PlayScreen implements Screen{
 		world.step(1/60f,6,2);
 		gamecam.position.x = player.b2body.getPosition().x;
 		
+		player.update(dt);
+		
 		gamecam.update();
 		renderer.setView(gamecam);
 	}
@@ -114,6 +125,12 @@ public class PlayScreen implements Screen{
 		
 		//render Box2DDug
 		b2dr.render(world, gamecam.combined);
+		
+		
+		game.batch.setProjectionMatrix(gamecam.combined);
+		game.batch.begin();
+		player.draw(game.batch);
+		game.batch.end();
 		
 		//set batch to now draw Hud cam see
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -157,5 +174,6 @@ public class PlayScreen implements Screen{
 		hud.dispose();
 		
 	}
+
 
 }
