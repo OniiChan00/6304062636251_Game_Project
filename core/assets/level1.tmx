@@ -122,9 +122,9 @@
   </data>
  </layer>
  <objectgroup id="3" name="Ground">
-  <object id="5" x="0" y="192" width="1104" height="18"/>
-  <object id="11" x="1136" y="192" width="256" height="16"/>
-  <object id="25" x="1440" y="192" width="1024" height="16"/>
+  <object id="5" x="0" y="189.917" width="1104" height="20.0833"/>
+  <object id="11" x="1136" y="189.25" width="256" height="18.75"/>
+  <object id="25" x="1440" y="189.25" width="1024" height="18.75"/>
   <object id="26" x="2208" y="128" width="16" height="64"/>
   <object id="27" x="2192" y="144" width="16" height="48"/>
   <object id="28" x="2176" y="160" width="16" height="32"/>
@@ -141,7 +141,7 @@
   <object id="39" x="2512" y="144" width="16" height="48"/>
   <object id="40" x="2528" y="160" width="16" height="32"/>
   <object id="41" x="2544" y="176" width="16" height="16"/>
-  <object id="42" x="2496" y="192" width="1344" height="16"/>
+  <object id="42" x="2496" y="189" width="1344" height="19"/>
   <object id="45" x="3024" y="64" width="32" height="128"/>
   <object id="46" x="3024" y="80" height="96"/>
   <object id="47" x="3008" y="80" width="16" height="112"/>
