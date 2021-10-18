@@ -18,6 +18,7 @@ import com.my.game.MainClass;
 
 import Scenes.Hud;
 import Sprites.Dany;
+import ToolCreateForCreateWorld.WorldContactLisnener;
 import ToolCreateForCreateWorld.WorldCreater;
 
 public class PlayScreen implements Screen{
@@ -67,6 +68,7 @@ public class PlayScreen implements Screen{
 		new WorldCreater(world, map);
 		
 		player = new Dany(world,this);
+		world.setContactListener(new WorldContactLisnener());
 		
 	}
 	
