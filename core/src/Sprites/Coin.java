@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,22 +15,13 @@ public class Coin extends Interactiveobject {
 	public Coin(World world,TiledMap map,Rectangle bound)
 	{
 		super(world,map,bound);
-		BodyDef bdef = new BodyDef();
-		FixtureDef fdef = new FixtureDef();
-		PolygonShape shape = new PolygonShape();
-	
-		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class))
-		{
-			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			bdef.type = BodyDef.BodyType.StaticBody;
-			bdef.position.set((bound.getX() + bound.getWidth()/2)/ MainClass.PPM,(bound.getY() + bound.getHeight()/2)/ MainClass.PPM);
+		fixture.setUserData(this);
+	}
+
+	@Override
+	public void Headhit() {
+		Gdx.app.log("Coin","Collision");
 		
-			body = world.createBody(bdef);
-			
-			shape.setAsBox(bound.getWidth() / 2 / MainClass.PPM, bound.height / 2 / MainClass.PPM);
-			fdef.shape = shape;
-			body.createFixture(fdef);
-		}
 	}
 
 }
