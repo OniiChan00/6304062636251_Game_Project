@@ -6,9 +6,11 @@ import java.util.Arrays;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -101,7 +103,7 @@ public class Dany extends Sprite{
 			region.flip(true, false);
 			runningRight = true;
 		}
-		System.out.println(currentState);
+		//System.out.println(currentState);
 		stateTimer = currentState == previousSate ? stateTimer + dt: 0;
 		previousSate = currentState;
 		
@@ -110,7 +112,7 @@ public class Dany extends Sprite{
 	
 	public State getState()
 	{
-		if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousSate == State.JUMPING))
+		if(b2body.getLinearVelocity().y > 0.01 || (b2body.getLinearVelocity().y < 0 && previousSate == State.JUMPING))
 		{
 			return State.JUMPING;
 		}
@@ -142,6 +144,13 @@ public class Dany extends Sprite{
 		
 		fdef.shape = shape;
 		b2body.createFixture(fdef);
+		
+		EdgeShape head = new EdgeShape();
+		head.set(new Vector2(-2/MainClass.PPM,6/MainClass.PPM),new Vector2(2/MainClass.PPM,6/MainClass.PPM));
+		fdef.shape = head;
+		fdef.isSensor = true;
+		
+		b2body.createFixture(fdef).setUserData("head");
 		
 	}
 }
