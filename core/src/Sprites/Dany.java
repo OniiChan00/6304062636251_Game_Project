@@ -20,12 +20,18 @@ import Screens.PlayScreen;
 
 public class Dany extends Sprite{
 	public enum State {FALLING, JUMPING, STANDING, RUNNING}
-	private State currentState;
-	private State previousSate;
+	public static State currentState;
+	public static State previousSate;
 	private Animation<TextureRegion> DinaRun;
 	private Animation<TextureRegion> DinaJump;
 	private float stateTimer;
 	private boolean runningRight;
+	
+	public static final short default_bit = 1;
+	public static final short Dany_bit = 2;
+	public static final short Brick_bit = 4;
+	public static final short coin_bit = 8;
+	public static final short destroyed_bit = 16;
 	
 	public World world;
 	public Body b2body;
@@ -138,10 +144,14 @@ public class Dany extends Sprite{
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
-		FixtureDef fdef = new FixtureDef();
-		CircleShape shape = new CircleShape();
-		shape.setRadius(5 / MainClass.PPM);
 		
+		
+		FixtureDef fdef = new FixtureDef();	
+		CircleShape shape = new CircleShape();
+		shape.setRadius(6 / MainClass.PPM);
+		fdef.filter.categoryBits = Dany.Dany_bit;
+		fdef.filter.maskBits = Dany.default_bit| Dany.Brick_bit | Dany.coin_bit;
+				
 		fdef.shape = shape;
 		b2body.createFixture(fdef);
 		
@@ -150,7 +160,6 @@ public class Dany extends Sprite{
 		fdef.shape = head;
 		fdef.isSensor = true;
 		
-		b2body.createFixture(fdef).setUserData("head");
-		
+		b2body.createFixture(fdef).setUserData("head");	
 	}
 }

@@ -18,6 +18,7 @@ import com.my.game.MainClass;
 
 import Scenes.Hud;
 import Sprites.Dany;
+import Sprites.Dany.State;
 import ToolCreateForCreateWorld.WorldContactLisnener;
 import ToolCreateForCreateWorld.WorldCreater;
 
@@ -91,7 +92,7 @@ public class PlayScreen implements Screen{
 	
 	public void handleInput(float dt)
 	{
-		 if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+		 if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && Dany.previousSate != State.JUMPING &&Dany.previousSate != State.FALLING)
 			player.b2body.applyLinearImpulse(new Vector2(0,4f), player.b2body.getWorldCenter(), true);
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2)
 			player.b2body.applyLinearImpulse(new Vector2(0.1f,0), player.b2body.getWorldCenter(), true);
@@ -105,8 +106,10 @@ public class PlayScreen implements Screen{
 		
 		world.step(1/60f,6,2);
 		gamecam.position.x = player.b2body.getPosition().x;
+		gamecam.position.y = player.b2body.getPosition().y;
 		
 		player.update(dt);
+		hud.update(dt);
 		
 		gamecam.update();
 		renderer.setView(gamecam);

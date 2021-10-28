@@ -1,27 +1,37 @@
 package Sprites;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.my.game.MainClass;
+
+import Scenes.Hud;
 
 public class Coin extends Interactiveobject {
+	
+	private static TiledMapTileSet tile_map;
+	private final int TAKEN_COIN = 28;
+	private boolean already_collect = false;
+	
+	
 	public Coin(World world,TiledMap map,Rectangle bound)
 	{
 		super(world,map,bound);
+		tile_map =map.getTileSets().getTileSet("tileset_gutter");
 		fixture.setUserData(this);
+		setCategoryFilter(Dany.coin_bit);
 	}
 
 	@Override
 	public void Headhit() {
-		Gdx.app.log("Coin","Collision");
-		
+		if(already_collect == false)
+		{
+			getCell().setTile(tile_map.getTile(TAKEN_COIN));	
+			Hud hud = new Hud();
+			hud.addScore(100);
+			already_collect = true;
+		}
+		else{}
 	}
 
 }
