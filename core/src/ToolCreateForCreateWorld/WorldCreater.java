@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.my.game.MainClass;
 
 import Sprites.Coin;
+import Sprites.Win_block;
 import Sprites.block;
 
 
@@ -59,7 +60,16 @@ public class WorldCreater
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			new block(world,map,rect);
 		}
-		
+
+		//win_block
+        for(MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
+
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            new Win_block(world,map ,rect);
+
+        }
+
+
 		//coin
 		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class))
 		{
