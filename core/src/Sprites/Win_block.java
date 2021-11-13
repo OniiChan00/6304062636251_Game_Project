@@ -23,10 +23,9 @@ public class Win_block extends Interactiveobject {
     @Override
     public void Headhit() {
         Gdx.app.log("Win_block","Collision");
-        PlayScreen.level+=1;
 
         Hud hud = new Hud();
-        hud.add_level(1);
+        hud.add_level();
 
     }
 }

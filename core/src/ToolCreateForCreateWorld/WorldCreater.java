@@ -16,6 +16,7 @@ import Sprites.Coin;
 import Sprites.Dany;
 import Sprites.Win_block;
 import Sprites.block;
+import Sprites.En1;
 
 
 public class WorldCreater 
@@ -54,7 +55,7 @@ public class WorldCreater
 
             shape.setAsBox(rect.getWidth() / 2 / MainClass.PPM, rect.getHeight() / 2 / MainClass.PPM);
             fdef.shape = shape;
-            fdef.filter.categoryBits = Dany.OBJECT_BIT;
+            //fdef.filter.categoryBits = Dany.OBJECT_BIT;
             body.createFixture(fdef);
         }
 		
@@ -63,6 +64,7 @@ public class WorldCreater
 		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class))
 		{
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
 			new block(screen,rect);
 		}
 
@@ -81,5 +83,7 @@ public class WorldCreater
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			new Coin(screen,rect);
 		}
+
+
 	}
 }

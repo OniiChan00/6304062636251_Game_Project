@@ -12,6 +12,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.my.game.MainClass;
 
+import java.util.logging.Level;
+
 import Screens.PlayScreen;
 
 public class Hud implements Disposable{
@@ -31,7 +33,7 @@ public class Hud implements Disposable{
 	
 	public Hud(SpriteBatch sb,int level)
 	{
-		worldTimer = 300;
+		worldTimer = 15;
 		timeCount = 0;
 		score = 0;
 		
@@ -66,6 +68,11 @@ public class Hud implements Disposable{
 	
 	public Hud() {}
 
+	public Integer get_worldtime()
+	{
+		return worldTimer;
+	}
+
 
 	public void update(float dt)
 	{
@@ -85,10 +92,9 @@ public class Hud implements Disposable{
 		scoreLabel.setText(String.format("%06d", score));
 	}
 
-	public void add_level(int level1)
+	public void add_level()
 	{
-		PlayScreen.level =+ level1;
-		levelLabel.setText(String.format("%d",level1));
+		levelLabel.setText(PlayScreen.level + 1);
 	}
 	@Override
 	public void dispose() {

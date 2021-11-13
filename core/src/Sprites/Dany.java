@@ -152,7 +152,10 @@ public class Dany extends Sprite{
 		CircleShape shape = new CircleShape();
 		shape.setRadius(6 / MainClass.PPM);
 		fdef.filter.categoryBits = Dany.Dany_bit;
-		fdef.filter.maskBits = Dany.default_bit| Dany.Brick_bit | Dany.coin_bit;
+		fdef.filter.maskBits = Dany.GROUND_BIT|
+				Dany.Brick_bit |
+				Dany.coin_bit |
+				Dany.ENEMY_BIT;
 				
 		fdef.shape = shape;
 		b2body.createFixture(fdef);

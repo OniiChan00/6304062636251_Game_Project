@@ -19,6 +19,7 @@ import com.my.game.MainClass;
 import Scenes.Hud;
 import Sprites.Dany;
 import Sprites.Dany.State;
+import Sprites.En1;
 import ToolCreateForCreateWorld.WorldContactLisnener;
 import ToolCreateForCreateWorld.WorldCreater;
 
@@ -30,6 +31,7 @@ public class PlayScreen implements Screen{
 	private Viewport gamePort;
 	private Hud hud;
 	private Dany player;
+	private  En1 en1;
 
 
 	private boolean next_level = false;
@@ -73,8 +75,10 @@ public class PlayScreen implements Screen{
 		
 		player = new Dany(this);
 
+
 		world.setContactListener(new WorldContactLisnener());
-		
+
+		en1 = new En1(this,.32f,.32f);
 	}
 	
 	public TextureAtlas getAtlas()
@@ -112,10 +116,17 @@ public class PlayScreen implements Screen{
 		gamecam.position.x = player.b2body.getPosition().x;
 		
 		player.update(dt);
+		en1.update(dt);
+
 		hud.update(dt);
 		
 		gamecam.update();
 		renderer.setView(gamecam);
+
+		if(hud.get_worldtime() < 0)
+		{
+			dispose();
+		}
 	}
 	
 	
@@ -132,13 +143,16 @@ public class PlayScreen implements Screen{
 		renderer.render();
 		
 		//render Box2DDug
-		b2dr.render(world, gamecam.combined);
+		//b2dr.render(world, gamecam.combined);
 
 		
 		
 		game.batch.setProjectionMatrix(gamecam.combined);
 		game.batch.begin();
+
 		player.draw(game.batch);
+		en1.draw(game.batch);
+
 		game.batch.end();
 		
 		//set batch to now draw Hud cam see
