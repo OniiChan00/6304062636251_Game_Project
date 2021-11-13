@@ -12,6 +12,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.my.game.MainClass;
 
+import Screens.PlayScreen;
+
 public class Hud implements Disposable{
 	public Stage stage;
 	public Viewport viewport;
@@ -83,6 +85,11 @@ public class Hud implements Disposable{
 		scoreLabel.setText(String.format("%06d", score));
 	}
 
+	public void add_level(int level1)
+	{
+		PlayScreen.level =+ level1;
+		levelLabel.setText(String.format("%d",level1));
+	}
 	@Override
 	public void dispose() {
 		stage.dispose();

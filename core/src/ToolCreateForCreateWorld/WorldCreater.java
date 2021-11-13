@@ -11,15 +11,19 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.my.game.MainClass;
 
+import Screens.PlayScreen;
 import Sprites.Coin;
+import Sprites.Dany;
 import Sprites.Win_block;
 import Sprites.block;
 
 
 public class WorldCreater 
 {
-	public WorldCreater(World world,TiledMap map)
+	public WorldCreater(PlayScreen screen)
 	{
+	    World world = screen.getWorld();
+	    TiledMap map = screen.getMap();
 		BodyDef bdef = new BodyDef();
 		PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
@@ -50,6 +54,7 @@ public class WorldCreater
 
             shape.setAsBox(rect.getWidth() / 2 / MainClass.PPM, rect.getHeight() / 2 / MainClass.PPM);
             fdef.shape = shape;
+            fdef.filter.categoryBits = Dany.OBJECT_BIT;
             body.createFixture(fdef);
         }
 		
@@ -58,14 +63,14 @@ public class WorldCreater
 		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class))
 		{
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			new block(world,map,rect);
+			new block(screen,rect);
 		}
 
 		//win_block
         for(MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
 
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Win_block(world,map ,rect);
+            new Win_block(screen ,rect);
 
         }
 
@@ -74,7 +79,7 @@ public class WorldCreater
 		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class))
 		{
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			new Coin(world,map,rect);
+			new Coin(screen,rect);
 		}
 	}
 }

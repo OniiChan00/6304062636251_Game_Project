@@ -13,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.*;
 import com.my.game.MainClass;
 
+import Screens.PlayScreen;
+
 
 public abstract class Interactiveobject {
 	
@@ -25,10 +27,10 @@ public abstract class Interactiveobject {
 	protected Fixture fixture;
 		
 	
-	public Interactiveobject(World world,TiledMap map,Rectangle bound)
+	public Interactiveobject(PlayScreen screen, Rectangle bound)
 	{
-		this.world = world;
-		this.map = map;
+		this.world = screen.getWorld();
+		this.map = screen.getMap();
 		this.bound = bound;
 		
 		BodyDef bdef = new BodyDef();

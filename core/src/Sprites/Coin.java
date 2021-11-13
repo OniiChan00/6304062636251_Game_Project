@@ -1,11 +1,13 @@
 package Sprites;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 
 import Scenes.Hud;
+import Screens.PlayScreen;
 
 public class Coin extends Interactiveobject {
 	
@@ -14,9 +16,9 @@ public class Coin extends Interactiveobject {
 	private boolean already_collect = false;
 	
 	
-	public Coin(World world,TiledMap map,Rectangle bound)
+	public Coin(PlayScreen screen, Rectangle bound)
 	{
-		super(world,map,bound);
+		super(screen,bound);
 		tile_map =map.getTileSets().getTileSet("tileset_gutter");
 		fixture.setUserData(this);
 		setCategoryFilter(Dany.coin_bit);

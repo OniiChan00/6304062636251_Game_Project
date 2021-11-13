@@ -27,21 +27,23 @@ public class Dany extends Sprite{
 	private float stateTimer;
 	private boolean runningRight;
 	
-	public static final short default_bit = 1;
+	public static final short GROUND_BIT = 1;
 	public static final short Dany_bit = 2;
 	public static final short Brick_bit = 4;
 	public static final short coin_bit = 8;
 	public static final short destroyed_bit = 16;
+	public static final short OBJECT_BIT = 32;
+	public static final short ENEMY_BIT = 64;
 	
 	public World world;
 	public Body b2body;
 	private TextureRegion DinaStand;
 	
-	public Dany(World world,PlayScreen screen)
+	public Dany(PlayScreen screen)
 	{
 		super(screen.getAtlas().findRegion("dina"));
-		this.world = world;
-		
+		this.world = screen.getWorld();
+
 		currentState = State.STANDING;
 		previousSate = State.STANDING;
 		stateTimer = 0;

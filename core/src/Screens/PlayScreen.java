@@ -23,19 +23,22 @@ import ToolCreateForCreateWorld.WorldContactLisnener;
 import ToolCreateForCreateWorld.WorldCreater;
 
 public class PlayScreen implements Screen{
-	
+
 	private MainClass game;
 	private TextureAtlas atlas;
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
 	private Hud hud;
 	private Dany player;
+
+
+	private boolean next_level = false;
 	
 	//tiled map
 	private TmxMapLoader maploader;
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
-	private int level = 1;
+	public static int level = 1;
 	private World world;
 	private Box2DDebugRenderer b2dr;
  
@@ -66,9 +69,9 @@ public class PlayScreen implements Screen{
 		//dbug line of our box2d World
 		b2dr = new Box2DDebugRenderer();
 		
-		new WorldCreater(world, map);
+		new WorldCreater(this);
 		
-		player = new Dany(world,this);
+		player = new Dany(this);
 
 		world.setContactListener(new WorldContactLisnener());
 		
@@ -149,6 +152,16 @@ public class PlayScreen implements Screen{
 	{
 		gamePort.update(width, height);
 		
+	}
+
+	public TiledMap getMap()
+	{
+		return map;
+	}
+
+	public World getWorld()
+	{
+		return world;
 	}
 
 	@Override
