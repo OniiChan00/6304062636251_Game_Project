@@ -58,7 +58,7 @@ public class PlayScreen implements Screen{
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / MainClass.PPM);
 		
 		//set gamecam to center correctly
-		gamecam.position.set((gamePort.getWorldWidth() / 2 ), (gamePort.getWorldHeight() / 2),0);
+		gamecam.position.set((gamePort.getWorldWidth()/2), (gamePort.getWorldHeight()/2),0);
 		
 		
 		world = new World(new Vector2(0, -10 ), true);
@@ -69,6 +69,7 @@ public class PlayScreen implements Screen{
 		new WorldCreater(world, map);
 		
 		player = new Dany(world,this);
+
 		world.setContactListener(new WorldContactLisnener());
 		
 	}
@@ -106,7 +107,6 @@ public class PlayScreen implements Screen{
 		
 		world.step(1/60f,6,2);
 		gamecam.position.x = player.b2body.getPosition().x;
-		gamecam.position.y = player.b2body.getPosition().y;
 		
 		player.update(dt);
 		hud.update(dt);
