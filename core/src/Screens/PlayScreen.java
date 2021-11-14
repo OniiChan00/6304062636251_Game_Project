@@ -127,6 +127,11 @@ public class PlayScreen implements Screen{
 		{
 			dispose();
 		}
+
+		if(player.get_y() < 0)
+		{
+			dispose();
+		}
 	}
 	
 	

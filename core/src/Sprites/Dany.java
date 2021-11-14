@@ -138,7 +138,10 @@ public class Dany extends Sprite{
 		}
 	}
 	
-	
+	public float get_y()
+	{
+		return b2body.getPosition().y;
+	}
 	public void defineDany()
 	{
 		BodyDef bdef = new BodyDef();
