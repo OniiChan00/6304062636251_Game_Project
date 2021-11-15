@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.my.game.MainClass;
 
+import Scenes.GameOver;
 import Scenes.Hud;
 import Sprites.Dany;
 import Sprites.Dany.State;
@@ -129,21 +130,16 @@ public class PlayScreen implements Screen{
 			gamecam.update();
 		renderer.setView(gamecam);
 
-		if(hud.get_worldtime() < 0)
+		if(hud.get_worldtime() < 0 || player.get_y() < 0 || player.isDead())
 		{
-			dispose();
+			player.currentState = State.DEAD;
 		}
 
-		if(player.get_y() < 0)
-		{
-			dispose();
-		}
 	}
 	
 	
 	@Override
-	public void render(float delta) 
-	{
+	public void render(float delta) {
 		update(delta);
 		
 		//clear Screen
@@ -173,12 +169,24 @@ public class PlayScreen implements Screen{
 		//set batch to now draw Hud cam see
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
-		
+
+		if(gameOver()){
+			game.setScreen(new GameOver(game));
+			dispose();
+		}
+	}
+	public boolean gameOver() {
+		if(player.currentState == State.DEAD) {
+			return true;
+		}
+		else{
+			return false;
+		}
+
 	}
 
 	@Override
-	public void resize(int width, int height) 
-	{
+	public void resize(int width, int height) {
 		gamePort.update(width, height);
 		
 	}

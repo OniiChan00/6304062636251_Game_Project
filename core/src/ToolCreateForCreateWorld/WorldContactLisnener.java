@@ -43,7 +43,8 @@ public class WorldContactLisnener implements ContactListener{
 				break;
 
 			case GameDany.ENEMY_BIT | GameDany.Dany_bit:
-				Gdx.app.log("Dina","Die");
+
+				((Dany) fixB.getUserData()).hit((Enemy)fixA.getUserData());
 				break;
 
 			case GameDany.ENEMY_BIT | GameDany.ENEMY_BIT:

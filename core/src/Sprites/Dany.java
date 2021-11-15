@@ -18,7 +18,7 @@ import Screens.PlayScreen;
 
 
 public class Dany extends Sprite{
-	public enum State {FALLING, JUMPING, STANDING, RUNNING}
+	public enum State {FALLING, JUMPING, STANDING, RUNNING, DEAD}
 	public static State currentState;
 	public static State previousSate;
 	private Animation<TextureRegion> DinaRun;
@@ -33,8 +33,7 @@ public class Dany extends Sprite{
 	public Body b2body;
 	private TextureRegion DinaStand;
 	
-	public Dany(PlayScreen screen)
-	{
+	public Dany(PlayScreen screen) {
 		super(screen.getAtlas().findRegion("dina"));
 		this.world = screen.getWorld();
 
@@ -69,14 +68,12 @@ public class Dany extends Sprite{
 		
 	}
 	
-	public void update(float dt)
-	{
+	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth()/2 , b2body.getPosition().y - getHeight()/2 );
 		setRegion(getFrame(dt));
 	}
 	
-	public TextureRegion getFrame(float dt)
-	{
+	public TextureRegion getFrame(float dt) {
 		currentState = getState();
 		
 		TextureRegion region;
@@ -112,8 +109,7 @@ public class Dany extends Sprite{
 		return region;
 	}
 	
-	public State getState()
-	{
+	public State getState() {
 		if(b2body.getLinearVelocity().y > 0.01 || (b2body.getLinearVelocity().y < 0 && previousSate == State.JUMPING))
 		{
 			return State.JUMPING;
@@ -137,8 +133,7 @@ public class Dany extends Sprite{
 		return b2body.getPosition().y;
 	}
 
-	public void defineDany()
-	{
+	public void defineDany() {
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(48 / MainClass.PPM ,48 / MainClass.PPM);
 		bdef.type = BodyDef.BodyType.DynamicBody;
@@ -167,12 +162,10 @@ public class Dany extends Sprite{
 		b2body.createFixture(fdef).setUserData("head");	
 	}
 
-	public void die()
-	{
+	public void die() {
 		DanyIsDead = true;
 		Filter filter = new Filter();
 		filter.maskBits = GameDany.NOTHING_BIT;
-		b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
 	}
 
 	public void hit(Enemy enemy)
@@ -182,5 +175,9 @@ public class Dany extends Sprite{
 
 	public boolean isDead(){
 		return DanyIsDead;
+	}
+
+	public float getStateTimer() {
+		return stateTimer;
 	}
 }
