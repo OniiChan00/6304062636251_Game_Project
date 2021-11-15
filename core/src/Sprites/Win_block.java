@@ -17,7 +17,7 @@ public class Win_block extends Interactiveobject {
     public Win_block(PlayScreen screen, Rectangle bound) {
         super(screen, bound);
         fixture.setUserData(this);
-        setCategoryFilter(Dany.Brick_bit);
+        setCategoryFilter(GameDany.Brick_bit);
     }
 
     @Override

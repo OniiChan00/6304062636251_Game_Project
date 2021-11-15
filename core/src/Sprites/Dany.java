@@ -1,8 +1,5 @@
 package Sprites;
 
-import java.awt.Frame;
-import java.util.Arrays;
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,12 +8,14 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.my.game.MainClass;
 
 import Screens.PlayScreen;
+
 
 public class Dany extends Sprite{
 	public enum State {FALLING, JUMPING, STANDING, RUNNING}
@@ -26,14 +25,9 @@ public class Dany extends Sprite{
 	private Animation<TextureRegion> DinaJump;
 	private float stateTimer;
 	private boolean runningRight;
-	
-	public static final short GROUND_BIT = 1;
-	public static final short Dany_bit = 2;
-	public static final short Brick_bit = 4;
-	public static final short coin_bit = 8;
-	public static final short destroyed_bit = 16;
-	public static final short OBJECT_BIT = 32;
-	public static final short ENEMY_BIT = 64;
+	private boolean DanyIsDead = false;
+
+
 	
 	public World world;
 	public Body b2body;
@@ -142,6 +136,7 @@ public class Dany extends Sprite{
 	{
 		return b2body.getPosition().y;
 	}
+
 	public void defineDany()
 	{
 		BodyDef bdef = new BodyDef();
@@ -154,14 +149,15 @@ public class Dany extends Sprite{
 		FixtureDef fdef = new FixtureDef();	
 		CircleShape shape = new CircleShape();
 		shape.setRadius(6 / MainClass.PPM);
-		fdef.filter.categoryBits = Dany.Dany_bit;
-		fdef.filter.maskBits = Dany.GROUND_BIT|
-				Dany.Brick_bit |
-				Dany.coin_bit |
-				Dany.ENEMY_BIT;
+		fdef.filter.categoryBits = GameDany.Dany_bit;
+		fdef.filter.maskBits = GameDany.GROUND_BIT|
+				GameDany.Brick_bit |
+				GameDany.coin_bit |
+				GameDany.ENEMY_BIT|
+				GameDany.OBJECT_BIT;
 				
 		fdef.shape = shape;
-		b2body.createFixture(fdef);
+		b2body.createFixture(fdef).setUserData(this);
 		
 		EdgeShape head = new EdgeShape();
 		head.set(new Vector2(-2/MainClass.PPM,6/MainClass.PPM),new Vector2(2/MainClass.PPM,6/MainClass.PPM));
@@ -169,5 +165,22 @@ public class Dany extends Sprite{
 		fdef.isSensor = true;
 		
 		b2body.createFixture(fdef).setUserData("head");	
+	}
+
+	public void die()
+	{
+		DanyIsDead = true;
+		Filter filter = new Filter();
+		filter.maskBits = GameDany.NOTHING_BIT;
+		b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+	}
+
+	public void hit(Enemy enemy)
+	{
+		die();
+	}
+
+	public boolean isDead(){
+		return DanyIsDead;
 	}
 }

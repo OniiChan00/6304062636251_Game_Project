@@ -20,6 +20,7 @@ import Scenes.Hud;
 import Sprites.Dany;
 import Sprites.Dany.State;
 import Sprites.En1;
+import Sprites.Enemy;
 import ToolCreateForCreateWorld.WorldContactLisnener;
 import ToolCreateForCreateWorld.WorldCreater;
 
@@ -31,7 +32,7 @@ public class PlayScreen implements Screen{
 	private Viewport gamePort;
 	private Hud hud;
 	private Dany player;
-	private  En1 en1;
+	//private  En1 en1;
 
 
 	private boolean next_level = false;
@@ -42,6 +43,7 @@ public class PlayScreen implements Screen{
 	private OrthogonalTiledMapRenderer renderer;
 	public static int level = 1;
 	private World world;
+	private WorldCreater create;
 	private Box2DDebugRenderer b2dr;
  
 	
@@ -71,14 +73,14 @@ public class PlayScreen implements Screen{
 		//dbug line of our box2d World
 		b2dr = new Box2DDebugRenderer();
 		
-		new WorldCreater(this);
+		create = new WorldCreater(this);
 		
 		player = new Dany(this);
 
 
 		world.setContactListener(new WorldContactLisnener());
 
-		en1 = new En1(this,.32f,.32f);
+		//en1 = new En1(this,.32f,.32f);
 	}
 	
 	public TextureAtlas getAtlas()
@@ -116,11 +118,15 @@ public class PlayScreen implements Screen{
 		gamecam.position.x = player.b2body.getPosition().x;
 		
 		player.update(dt);
-		en1.update(dt);
+		for(Enemy enemy: create.getEn1())
+		{
+			enemy.update(dt);
+		}
+		//en1.update(dt);
 
-		hud.update(dt);
-		
-		gamecam.update();
+			hud.update(dt);
+
+			gamecam.update();
 		renderer.setView(gamecam);
 
 		if(hud.get_worldtime() < 0)
@@ -156,7 +162,11 @@ public class PlayScreen implements Screen{
 		game.batch.begin();
 
 		player.draw(game.batch);
-		en1.draw(game.batch);
+		//en1.draw(game.batch);
+		for(Enemy enemy: create.getEn1())
+		{
+			enemy.draw(game.batch);
+		}
 
 		game.batch.end();
 		

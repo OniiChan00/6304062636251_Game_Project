@@ -15,13 +15,13 @@ public class block extends Interactiveobject{
 	{
 		super(screen, bound);
 		fixture.setUserData(this);
-		setCategoryFilter(Dany.Brick_bit);
+		setCategoryFilter(GameDany.Brick_bit);
 	}
 
 	@Override
 	public void Headhit() {
 		Gdx.app.log("block","Collision");
-		setCategoryFilter(Dany.destroyed_bit);
+		setCategoryFilter(GameDany.destroyed_bit);
 		getCell().setTile(null);
 		
 		Hud hud = new Hud();

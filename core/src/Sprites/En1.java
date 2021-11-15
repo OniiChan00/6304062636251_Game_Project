@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,6 +34,7 @@ public class En1 extends Enemy{
         setPosition(b2body.getPosition().x - getWidth()/2,b2body.getPosition().y - getHeight()/2);
         setRegion((TextureRegion) walkAnimation.getKeyFrame(stateTime,true));
         b2body.setLinearVelocity(velocity);
+
     }
 
     @Override
@@ -45,11 +47,13 @@ public class En1 extends Enemy{
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / MainClass.PPM);
-        fdef.filter.categoryBits = Dany.ENEMY_BIT;
-        fdef.filter.maskBits = Dany.GROUND_BIT |
-                Dany.Brick_bit |
-                Dany.coin_bit |
-                Dany.ENEMY_BIT;
+        fdef.filter.categoryBits = GameDany.ENEMY_BIT;
+        fdef.filter.maskBits = GameDany.GROUND_BIT |
+                GameDany.Brick_bit |
+                GameDany.coin_bit |
+                GameDany.ENEMY_BIT|
+                GameDany.Dany_bit|
+                GameDany.OBJECT_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

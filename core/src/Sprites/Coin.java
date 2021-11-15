@@ -21,7 +21,7 @@ public class Coin extends Interactiveobject {
 		super(screen,bound);
 		tile_map =map.getTileSets().getTileSet("tileset_gutter");
 		fixture.setUserData(this);
-		setCategoryFilter(Dany.coin_bit);
+		setCategoryFilter(GameDany.coin_bit);
 	}
 
 	@Override

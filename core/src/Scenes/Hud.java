@@ -33,7 +33,7 @@ public class Hud implements Disposable{
 	
 	public Hud(SpriteBatch sb,int level)
 	{
-		worldTimer = 15;
+		worldTimer = 30;
 		timeCount = 0;
 		score = 0;
 		
@@ -49,7 +49,7 @@ public class Hud implements Disposable{
 		 scoreLabel = new Label(String.format("%06d", score),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 		 timeLabel = new Label(" Time",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 		 levelLabel = new Label(String.format("%d", level),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-		 worldLabel = new Label("World",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+		 worldLabel = new Label("Level",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 		 taleLabel = new Label("TALE",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 		 
 		 
