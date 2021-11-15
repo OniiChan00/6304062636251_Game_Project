@@ -1,10 +1,7 @@
 package Sprites;
 
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.World;
 
 import Scenes.Hud;
 import Screens.PlayScreen;
@@ -16,13 +13,14 @@ public class Coin extends Interactiveobject {
 	private boolean already_collect = false;
 	
 	
-	public Coin(PlayScreen screen, Rectangle bound)
-	{
+	public Coin(PlayScreen screen, Rectangle bound) {
 		super(screen,bound);
 		tile_map =map.getTileSets().getTileSet("tileset_gutter");
 		fixture.setUserData(this);
 		setCategoryFilter(GameDany.coin_bit);
 	}
+
+
 
 	@Override
 	public void Headhit() {
@@ -30,7 +28,7 @@ public class Coin extends Interactiveobject {
 		{
 			getCell().setTile(tile_map.getTile(TAKEN_COIN));	
 			Hud hud = new Hud();
-			hud.addScore(100);
+			hud.addScore(1);
 			already_collect = true;
 		}
 		else{}

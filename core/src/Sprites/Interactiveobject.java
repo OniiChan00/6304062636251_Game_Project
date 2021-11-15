@@ -27,8 +27,7 @@ public abstract class Interactiveobject {
 	protected Fixture fixture;
 		
 	
-	public Interactiveobject(PlayScreen screen, Rectangle bound)
-	{
+	public Interactiveobject(PlayScreen screen, Rectangle bound) {
 		this.world = screen.getWorld();
 		this.map = screen.getMap();
 		this.bound = bound;
@@ -47,10 +46,9 @@ public abstract class Interactiveobject {
 		fixture = body.createFixture(fdef);
 		
 	}
-	
+
 	public abstract void Headhit();
-	
-	
+
 	
 	public void setCategoryFilter(short filterBit)
 	{
@@ -58,6 +56,7 @@ public abstract class Interactiveobject {
 		filter.categoryBits = filterBit;
 		fixture.setFilterData(filter);
 	}
+
 	public TiledMapTileLayer.Cell getCell()
 	{
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);

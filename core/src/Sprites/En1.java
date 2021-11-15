@@ -1,8 +1,6 @@
 package Sprites;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -28,6 +26,7 @@ public class En1 extends Enemy{
             setBounds(getX(),getY(),16/ MainClass.PPM,16/ MainClass.PPM);
         }
     }
+
     public void update(float dt)
     {
         stateTime += dt;

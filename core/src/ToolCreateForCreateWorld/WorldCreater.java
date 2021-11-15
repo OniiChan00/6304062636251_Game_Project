@@ -16,16 +16,13 @@ import com.my.game.MainClass;
 import Screens.PlayScreen;
 import Sprites.Coin;
 import Sprites.GameDany;
-import Sprites.Win_block;
 import Sprites.block;
 import Sprites.En1;
 
 
-public class WorldCreater 
-{
+public class WorldCreater {
     private Array<En1> en1;
-	public WorldCreater(PlayScreen screen)
-	{
+	public WorldCreater(PlayScreen screen) {
 	    World world = screen.getWorld();
 	    TiledMap map = screen.getMap();
 		BodyDef bdef = new BodyDef();
@@ -71,14 +68,6 @@ public class WorldCreater
 			new block(screen,rect);
 		}
 
-		//win_block
-        for(MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
-
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Win_block(screen ,rect);
-
-        }
-
 
 		//coin
 		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class))
@@ -95,6 +84,7 @@ public class WorldCreater
         }
 
 	}
+
 	public Array<En1> getEn1()
     {
         return en1;

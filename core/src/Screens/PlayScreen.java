@@ -18,6 +18,7 @@ import com.my.game.MainClass;
 
 import Scenes.GameOver;
 import Scenes.Hud;
+import Scenes.Next_Level;
 import Sprites.Dany;
 import Sprites.Dany.State;
 import Sprites.En1;
@@ -42,7 +43,6 @@ public class PlayScreen implements Screen{
 	private TmxMapLoader maploader;
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
-	public static int level = 1;
 	private World world;
 	private WorldCreater create;
 	private Box2DDebugRenderer b2dr;
@@ -58,11 +58,11 @@ public class PlayScreen implements Screen{
 		gamePort = new FitViewport(MainClass.V_WIDTH / MainClass.PPM,MainClass.V_HEIGHT / MainClass.PPM,gamecam );
 		
 		//hud
-		hud = new Hud(game.batch,level);
+		hud = new Hud(game.batch,GameDany.Level);
 		
 		//load map
 		maploader = new TmxMapLoader();
-		map = maploader.load("level"+level+".tmx");
+		map = maploader.load("level"+GameDany.Level+".tmx");
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / MainClass.PPM);
 		
 		//set gamecam to center correctly
@@ -123,12 +123,13 @@ public class PlayScreen implements Screen{
 
 			hud.update(dt);
 
-			gamecam.update();
+		gamecam.update();
 		renderer.setView(gamecam);
 
 		if(hud.get_worldtime() < 0 || player.get_y() < 0 || player.isDead()) {
 			player.currentState = State.DEAD;
 		}
+
 
 	}
 	
@@ -168,6 +169,9 @@ public class PlayScreen implements Screen{
 		if(gameOver()){
 			game.setScreen(new GameOver(game));
 			dispose();
+		}
+		if(hud.get_score() == 5){
+			game.setScreen(new Next_Level(game));
 		}
 	}
 	public boolean gameOver() {

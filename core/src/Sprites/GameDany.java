@@ -15,6 +15,7 @@ public class GameDany extends Game {
     public static final int V_HEIGHT = 208;
     public static final float PPM = 100;
 
+    public static int Level = 1;
     public static final short NOTHING_BIT = 0;
     public static final short GROUND_BIT = 1;
     public static final short Dany_bit = 2;

@@ -33,7 +33,7 @@ public class Hud implements Disposable{
 	
 	public Hud(SpriteBatch sb,int level)
 	{
-		worldTimer = 30;
+		worldTimer = 60;
 		timeCount = 0;
 		score = 0;
 		
@@ -46,11 +46,11 @@ public class Hud implements Disposable{
 		
 		
 		 countdownLabel = new Label(String.format("%03d", worldTimer),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-		 scoreLabel = new Label(String.format("%06d", score),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+		 scoreLabel = new Label(String.format("%d/15", score),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 		 timeLabel = new Label(" Time",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 		 levelLabel = new Label(String.format("%d", level),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 		 worldLabel = new Label("Level",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-		 taleLabel = new Label("TALE",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+		 taleLabel = new Label("Coin",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 		 
 		 
 		 table.add(taleLabel).expandX().padTop(10);
@@ -89,7 +89,7 @@ public class Hud implements Disposable{
 	public void addScore(int coin)
 	{
 		score += coin;
-		scoreLabel.setText(String.format("%06d", score));
+		scoreLabel.setText(String.format("%d/15", score));
 	}
 
 	@Override
@@ -97,6 +97,10 @@ public class Hud implements Disposable{
 		stage.dispose();
 		
 	}
-	
+
+	public int get_score()
+	{
+		return score;
+	}
 
 }

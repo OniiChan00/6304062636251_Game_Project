@@ -13,8 +13,7 @@ public abstract class Enemy extends Sprite {
     public Body b2body;
     public Vector2 velocity;
 
-    public Enemy(PlayScreen screen,float x, float y)
-    {
+    public Enemy(PlayScreen screen,float x, float y) {
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x,y);
@@ -22,6 +21,7 @@ public abstract class Enemy extends Sprite {
         velocity = new Vector2(1,0);
 
     }
+
 
     protected abstract void defineEnemy();
     public abstract void update(float dt);
