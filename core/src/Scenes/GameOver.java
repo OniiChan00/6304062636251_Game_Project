@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.my.game.MainClass;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+import Screens.PlayScreen;
 
 
 public class GameOver implements Screen
@@ -49,6 +50,11 @@ public class GameOver implements Screen
 
     @Override
     public void render(float delta) {
+        if(Gdx.input.justTouched()){
+            game.setScreen(new PlayScreen((MainClass) game));
+            dispose();
+        }
+
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
@@ -77,6 +83,6 @@ public class GameOver implements Screen
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 }

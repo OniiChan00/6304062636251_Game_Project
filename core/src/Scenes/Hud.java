@@ -92,10 +92,6 @@ public class Hud implements Disposable{
 		scoreLabel.setText(String.format("%06d", score));
 	}
 
-	public void add_level()
-	{
-		levelLabel.setText(PlayScreen.level + 1);
-	}
 	@Override
 	public void dispose() {
 		stage.dispose();

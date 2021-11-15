@@ -22,6 +22,7 @@ import Sprites.Dany;
 import Sprites.Dany.State;
 import Sprites.En1;
 import Sprites.Enemy;
+import Sprites.GameDany;
 import ToolCreateForCreateWorld.WorldContactLisnener;
 import ToolCreateForCreateWorld.WorldCreater;
 
@@ -37,7 +38,6 @@ public class PlayScreen implements Screen{
 
 
 	private boolean next_level = false;
-	
 	//tiled map
 	private TmxMapLoader maploader;
 	private TiledMap map;
@@ -81,6 +81,7 @@ public class PlayScreen implements Screen{
 
 		world.setContactListener(new WorldContactLisnener());
 
+		//test Enenmy
 		//en1 = new En1(this,.32f,.32f);
 	}
 	
@@ -89,10 +90,6 @@ public class PlayScreen implements Screen{
 		return atlas;
 	}
 
-	
-	
-	
-	
 	@Override
 	public void show() 
 	{
@@ -101,8 +98,7 @@ public class PlayScreen implements Screen{
 	}
 
 	
-	public void handleInput(float dt)
-	{
+	public void handleInput(float dt) {
 		 if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && Dany.previousSate != State.JUMPING &&Dany.previousSate != State.FALLING)
 			player.b2body.applyLinearImpulse(new Vector2(0,4f), player.b2body.getWorldCenter(), true);
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2)
@@ -130,8 +126,7 @@ public class PlayScreen implements Screen{
 			gamecam.update();
 		renderer.setView(gamecam);
 
-		if(hud.get_worldtime() < 0 || player.get_y() < 0 || player.isDead())
-		{
+		if(hud.get_worldtime() < 0 || player.get_y() < 0 || player.isDead()) {
 			player.currentState = State.DEAD;
 		}
 
@@ -141,7 +136,8 @@ public class PlayScreen implements Screen{
 	@Override
 	public void render(float delta) {
 		update(delta);
-		
+
+
 		//clear Screen
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -159,8 +155,7 @@ public class PlayScreen implements Screen{
 
 		player.draw(game.batch);
 		//en1.draw(game.batch);
-		for(Enemy enemy: create.getEn1())
-		{
+		for(Enemy enemy: create.getEn1()) {
 			enemy.draw(game.batch);
 		}
 
